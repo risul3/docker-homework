@@ -20,5 +20,14 @@ $router->get('/api/v1/login', function () use ($router) {
 });
 
 $router->get('/api/v1/products', function () use ($router) {
-    return response()->json(['status' => true, 'products' => ['Apple', 'Banan', 'Mango']], 200);
+    $url = "";
+    $crl = curl_init();
+    curl_setopt($crl, CURLOPT_URL, $url);
+    curl_setopt($crl, CURLOPT_POST, 0);
+    curl_setopt($crl, CURLOPT_RETURNTRANSFER, true);
+
+    $response = curl_exec ($crl);
+    curl_close ($crl);
+
+    return response()->json(['status' => true, 'products' => $response], 200);
 });
